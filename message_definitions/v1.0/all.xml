@@ -40,6 +40,7 @@
   -->
   <include>cubepilot.xml</include>
   <include>csAirLink.xml</include>
+  <include>payload_system.xml</include>
   <!-- csAirLink.xml range of IDs:
     messages: 52000 - 52099
     commands: 52000 - 52099

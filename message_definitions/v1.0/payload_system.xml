@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<mavlink>
+    <!-- Dialect ID: choose unique ID 100–255 -->
+    <dialect>202</dialect>
+    <include>common.xml</include>
+
+
+    <!-- ========================================= -->
+    <!--              CUSTOM COMMANDS              -->
+    <!-- ========================================= -->
+    <enums>
+        <enum name="MAV_CMD">
+            <description>Custom DO-commands for payload control</description>
+
+            <!-- 60012: SAFETY -->
+            <entry value="60012" name="MAV_CMD_DO_SAFETY">
+                <description>Fire catapult</description>
+                <param index="1">Safety state</param>
+                <param index="2">Safety code (777=allow)</param>
+            </entry>
+            <!-- 60013: SAFETY -->
+            <entry value="60013" name="MAV_CMD_DO_DROP">
+                <description>Fire catapult</description>
+                <param index="1">Payload 1 </param>
+                <param index="2">Payload 2 </param>
+                <param index="3">Payload 3 </param>
+                <param index="4">Payload 4 </param>
+                <param index="5">Payload 5 </param>
+                <param index="6">Payload 6 </param>
+
+            </entry>
+
+
+        </enum>
+
+        <!-- ========================================= -->
+        <!--            STATE ENUMERATIONS             -->
+        <!-- ========================================= -->
+
+        <enum name="PAYLOAD_SAFETY_STATE">
+            <entry value="0" name="SAFE"/>
+            <entry value="1" name="UNSAFE"/>
+        </enum>
+        <enum name="PAYLOAD_STATE">
+            <entry value="2" name="PL_UNLOAD"/>
+            <entry value="3" name="PL_LOAD"/>
+            <entry value="4" name="PL_FIRE"/>
+            <entry value="5" name="PL_RELOAD"/>
+            <entry value="6" name="PL_ERROR"/>
+            <entry value="7" name="PL_JAMMED"/>
+
+        </enum>
+
+    </enums>
+
+    <!-- ========================================= -->
+    <!--              TELEMETRY MESSAGE            -->
+    <!-- ========================================= -->
+    <messages>
+        <message id="61001" name="PAYLOAD_STATUS">
+            <description>Telemetry from pneumatic catapult</description>
+            <field type="uint8_t" name="target_system">0: request ping from all receiving systems. If greater than 0: message is a ping response and number is the system id of the requesting system</field>
+            <field type="uint8_t" name="target_component">0: request ping from all receiving components. If greater than 0: message is a ping response and number is the component id of the requesting component.</field>
+            <field type="uint32_t" name="time_boot_ms">Timestamp</field>
+            <field type="uint8_t" name="payload_1" enum="PAYLOAD_STATE">Payload 1 status</field>
+            <field type="uint8_t" name="payload_2" enum="PAYLOAD_STATE">Payload 2 status</field>
+            <field type="uint8_t" name="payload_3" enum="PAYLOAD_STATE">Payload 3 status</field>
+            <field type="uint8_t" name="payload_4" enum="PAYLOAD_STATE">Payload 4 status</field>
+            <field type="uint8_t" name="payload_5" enum="PAYLOAD_STATE">Payload 5 status</field>
+            <field type="uint8_t" name="payload_6" enum="PAYLOAD_STATE">Payload 6 status</field>
+            <field type="uint8_t" name="safety" enum="PAYLOAD_SAFETY_STATE">Safety status</field>
+            <field type="float" name="voltage">Voltage</field>
+        </message>
+    </messages>
+
+</mavlink>
